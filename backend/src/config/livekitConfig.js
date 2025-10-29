@@ -11,7 +11,7 @@ export async function generateLivekitToken(identity) {
 
   token.addGrant({
     roomJoin: true,
-    room: process.env.LIVEKIT_ROOM || "default-room",
+    room: process.env.LIVEKIT_ROOM || "ai-salon",
     canPublish: true,
     canSubscribe: true,
   });
