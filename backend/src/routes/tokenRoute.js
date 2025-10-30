@@ -1,6 +1,6 @@
 import express from "express";
 import { generateLivekitToken } from "../config/livekitConfig.js";
-import { AccessToken } from "livekit-server-sdk";
+
 
 const router = express.Router();
 
