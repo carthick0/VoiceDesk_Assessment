@@ -1,8 +1,8 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import tokenRoute from "./routes/tokenRoute.js";
-import kbRoutes from "./routes/kbRoutes.js";
+import livekitRoutes from "./routes/livekitRoutes.js";
+import knowledgeRoutes from "./routes/knowledgeRoutes.js";
 import authRoutes from "./routes/authRoutes.js"
 import { connectDB } from "./config/db.js";
 dotenv.config();
@@ -11,8 +11,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/token", tokenRoute);
-app.use('/api/kb',kbRoutes);
+app.use("/api/token", livekitRoutes);
+app.use('/api/kb',knowledgeRoutes);
 app.use('/api/auth',authRoutes)
 
 app.listen(PORT, async () => {

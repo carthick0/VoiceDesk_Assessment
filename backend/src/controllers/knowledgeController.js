@@ -1,26 +1,27 @@
-import express from "express";
 import Knowledge from "../models/knowledge.js";
 
-const router = express.Router();
-
-
-router.post("/add", async (req, res) => {
+export const addKnowledge = async (req, res) => {
   try {
     const { question, answer } = req.body;
-    if (!question || !answer)
-      return res.status(400).json({ error: "Both question and answer required" });
 
-    const entry = new Knowledge({ question: question.toLowerCase(), answer });
+    if (!question || !answer) {
+      return res.status(400).json({ error: "Both question and answer required" });
+    }
+
+    const entry = new Knowledge({
+      question: question.toLowerCase(),
+      answer,
+    });
+
     await entry.save();
     res.json({ message: "Knowledge added successfully", entry });
   } catch (error) {
     console.error("Error adding knowledge:", error);
     res.status(500).json({ error: "Failed to add knowledge" });
   }
-});
+};
 
-
-router.post("/query", async (req, res) => {
+export const queryKnowledge = async (req, res) => {
   try {
     const { question } = req.body;
     if (!question) return res.status(400).json({ error: "Text required" });
@@ -34,7 +35,6 @@ router.post("/query", async (req, res) => {
       const qWords = item.question.split(" ");
       let matchCount = 0;
 
-      
       for (const word of qWords) {
         if (lower.includes(word)) matchCount++;
       }
@@ -49,7 +49,6 @@ router.post("/query", async (req, res) => {
 
     let reply = "I'm sorry, I didn't understand that.";
     if (bestMatch && highestScore >= 0.4) {
-     
       reply = bestMatch.answer;
     }
 
@@ -58,7 +57,4 @@ router.post("/query", async (req, res) => {
     console.error("Error fetching KB response:", error);
     res.status(500).json({ error: "Server error" });
   }
-});
-
-
-export default router;
+};
