@@ -3,7 +3,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import livekitRoutes from "./routes/livekitRoutes.js";
 import knowledgeRoutes from "./routes/knowledgeRoutes.js";
-import authRoutes from "./routes/authRoutes.js"
+import authRoutes from "./routes/authRoutes.js";
+import unresolvedRoutes from "./routes/unresolvedRoutes.js"
 import { connectDB } from "./config/db.js";
 dotenv.config();
 const PORT = process.env.PORT || 5000;
@@ -18,7 +19,8 @@ app.use(express.json());
 
 app.use("/api/token", livekitRoutes);
 app.use('/api/kb',knowledgeRoutes);
-app.use('/api/auth',authRoutes)
+app.use('/api/auth',authRoutes);
+app.use('/api/unresolved',unresolvedRoutes)
 
 app.listen(PORT, async () => {
   try {

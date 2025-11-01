@@ -1,4 +1,5 @@
 import Knowledge from "../models/knowledge.js";
+import Unresolved from "../models/unresolved.js";
 
 export const addKnowledge = async (req, res) => {
   try {
@@ -50,6 +51,14 @@ export const queryKnowledge = async (req, res) => {
     let reply = "I'm sorry, I didn't understand that.";
     if (bestMatch && highestScore >= 0.4) {
       reply = bestMatch.answer;
+    }
+    else {
+      await Unresolved.create({
+        question,
+        user:req.user 
+        ?{id:req.user.id,name:req.user.name}
+        :{name:"Guest"}
+      });
     }
 
     res.json({ reply });
