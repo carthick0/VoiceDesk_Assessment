@@ -12,6 +12,11 @@ function Login() {
     password: "Test@1234",
   };
 
+  const humanCreds = {
+    email: "humanai@gmail.com",
+    password: "123",
+  };
+
   const handleLogin = async (credentials) => {
     try {
       const res = await api.post("/auth/login", credentials);
@@ -38,9 +43,8 @@ function Login() {
     handleLogin(form);
   };
 
-  const handleTestLogin = () => {
-    handleLogin(testCreds);
-  };
+  const handleTestLogin = () => handleLogin(testCreds);
+  const handleHumanLogin = () => handleLogin(humanCreds);
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-950 text-white">
@@ -71,9 +75,17 @@ function Login() {
         <button
           type="button"
           onClick={handleTestLogin}
-          className="bg-green-600 hover:bg-green-700 px-6 py-3 rounded-xl"
+          className="bg-green-600 hover:bg-green-700 px-6 py-3 rounded-xl mb-3"
         >
-          Use Test Credentials
+          Use AI Test Credentials
+        </button>
+
+        <button
+          type="button"
+          onClick={handleHumanLogin}
+          className="bg-purple-600 hover:bg-purple-700 px-6 py-3 rounded-xl"
+        >
+          Use Human Supervisor Credentials
         </button>
       </form>
 
