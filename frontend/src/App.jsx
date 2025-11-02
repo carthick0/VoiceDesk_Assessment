@@ -15,10 +15,10 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route
-          path="/"
+          path="/room"
           element={<JoinRoom onJoin={handleJoin} />}
         />
         <Route path="/humanai-dashboard" element={<HumanAIDashboard />} />

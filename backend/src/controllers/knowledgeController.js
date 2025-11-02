@@ -21,7 +21,6 @@ export const addKnowledge = async (req, res) => {
     res.status(500).json({ error: "Failed to add knowledge" });
   }
 };
-
 export const queryKnowledge = async (req, res) => {
   try {
     const { question } = req.body;
@@ -35,13 +34,11 @@ export const queryKnowledge = async (req, res) => {
     for (const item of entries) {
       const qWords = item.question.split(" ");
       let matchCount = 0;
-
       for (const word of qWords) {
         if (lower.includes(word)) matchCount++;
       }
 
       const score = matchCount / qWords.length;
-
       if (score > highestScore) {
         highestScore = score;
         bestMatch = item;
@@ -51,13 +48,13 @@ export const queryKnowledge = async (req, res) => {
     let reply = "I'm sorry, I didn't understand that.";
     if (bestMatch && highestScore >= 0.6) {
       reply = bestMatch.answer;
-    }
-    else {
+    } else {
+      // 🧠 Store unresolved with correct user info
       await Unresolved.create({
         question,
-        user:req.user 
-        ?{id:req.user.id,name:req.user.name}
-        :{name:"Guest"}
+        user: req.user
+          ? { id: req.user.id, name: req.user.name } // ✅ actual user info
+          : { id: null, name: "Guest" }, // fallback
       });
     }
 
@@ -67,3 +64,4 @@ export const queryKnowledge = async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 };
+

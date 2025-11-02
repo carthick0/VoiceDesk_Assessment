@@ -1,5 +1,6 @@
 import express from "express";
 import {
+    getResolvedByUser,
   getUnresolved,
   resolveUnresolved
 } from "../controllers/unresolvedController.js";
@@ -7,8 +8,7 @@ import { protect, allowRoles } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-// Only humanai role can view or resolve unresolved questions
-router.get("/", protect, allowRoles("humanai"), getUnresolved);
+router.get("/", protect, getUnresolved);
 router.post("/resolve/:id", protect, allowRoles("humanai"), resolveUnresolved);
-
+router.get("/resolved/:userId", getResolvedByUser);
 export default router;

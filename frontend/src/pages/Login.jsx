@@ -26,7 +26,7 @@ function Login() {
       if (user.role === "humanai") {
         navigate("/humanai-dashboard");
       } else {
-        navigate("/");
+        navigate("/room");
       }
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");
