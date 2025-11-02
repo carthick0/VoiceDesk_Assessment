@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  backend:
+    build: .
+    container_name: ai_backend
+    ports:
+      - "5000:5000"
+    env_file: .env
+    depends_on:
+      - mongo
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm start
+
+  mongo:
+    image: mongo:6
+    container_name: ai_mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
