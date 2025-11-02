@@ -5,6 +5,6 @@ import { protect } from "../middleware/authMiddleware.js";
 const router = express.Router();
 
 router.post("/add", addKnowledge);
-router.post("/query", protect,queryKnowledge);
+router.post("/query",queryKnowledge);
 
 export default router;

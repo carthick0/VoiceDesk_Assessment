@@ -7,32 +7,39 @@ function Login() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  //  Test credentials
   const testCreds = {
     email: "testuser@example.com",
     password: "Test@1234",
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleLogin = async (credentials) => {
     try {
-      const res = await api.post("/auth/login", form);
-      console.log("Login Success:", res.data);
-      navigate("/");
+      const res = await api.post("/auth/login", credentials);
+      const { user, token } = res.data;
+
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+
+      console.log("Login Success:", user);
+
+      // Redirect based on role
+      if (user.role === "humanai") {
+        navigate("/humanai-dashboard");
+      } else {
+        navigate("/");
+      }
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");
     }
   };
 
-  //  Use test credentials directly
-  const handleTestLogin = async () => {
-    try {
-      const res = await api.post("/auth/login", testCreds);
-      console.log("Test Login Success:", res.data);
-      navigate("/");
-    } catch (err) {
-      setError(err.response?.data?.message || "Test login failed");
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleLogin(form);
+  };
+
+  const handleTestLogin = () => {
+    handleLogin(testCreds);
   };
 
   return (
@@ -61,7 +68,6 @@ function Login() {
           Login
         </button>
 
-        {/* Test Credentials Button */}
         <button
           type="button"
           onClick={handleTestLogin}

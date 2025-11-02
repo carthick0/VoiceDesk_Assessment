@@ -49,7 +49,7 @@ export const queryKnowledge = async (req, res) => {
     }
 
     let reply = "I'm sorry, I didn't understand that.";
-    if (bestMatch && highestScore >= 0.4) {
+    if (bestMatch && highestScore >= 0.6) {
       reply = bestMatch.answer;
     }
     else {

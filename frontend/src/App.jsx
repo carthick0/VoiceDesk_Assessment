@@ -4,6 +4,7 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import JoinRoom from "./components/JoinRoom";
 import SpeechToText from "./components/SpeechToText";
+import HumanAIDashboard from "./pages/HumanAiDashboard";
 
 function App() {
   const [userData, setUserData] = useState(null);
@@ -20,6 +21,7 @@ function App() {
           path="/"
           element={<JoinRoom onJoin={handleJoin} />}
         />
+        <Route path="/humanai-dashboard" element={<HumanAIDashboard />} />
         <Route
           path="/speak"
           element={
