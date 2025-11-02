@@ -194,7 +194,7 @@ frontend/
 │   ├── components/
 │   ├── services/
 │   └── App.jsx
-├── Dockerfile
+├
 └── vite.config.js
 ```
 
